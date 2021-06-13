@@ -1,6 +1,22 @@
 <?php 
 require_once 'classes/user.php';
+
 $objUser = new User();
+
+if(isset($_GET['delete_id'])){
+    $id = $_GET['delete_id'];
+    try{
+      if($id != null){
+        if($objUser->delete($id)){
+          $objUser->redirect('user-data.php');
+        }
+      }else{
+        var_dump($id);
+      }
+    }catch(PDOException $e){
+      echo $e->getMessage();
+    }
+}
 
 if(isset($_POST)){
     $first_name = $_POST['firstname'];
@@ -14,26 +30,6 @@ if(isset($_POST)){
     } else{
         echo 'Error came up during registration. Please try again later!';
     }
-} else {
-    echo 'No data';
 }
 
-// GET
-if(isset($_GET['delete'])){
-    $id = $_GET['delete_id'];
-    echo "delete element";
-    // $email = $GET['delete_email'];
-    try{
-      if($id != null){
-        if($objUser->delete($id)){
-            echo "You have successfully deleted ";// . $email . ".";
-        //   $objUser->redirect('index.php?deleted');
-        }
-      }else{
-        var_dump($id);
-      }
-    }catch(PDOException $e){
-      echo $e->getMessage();
-    }
-}
 ?>

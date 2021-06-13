@@ -24,7 +24,7 @@
         <h1 id="title">SignUp Form</h1>
         <div class="main-agileinfo">
             <div class="agileits-top">
-                <form id="form-register" action="index.php" method="post">
+                <form id="form-register" action="register.php" method="post">
                     <input class="text" type="text" id="firstname" name="firstname" placeholder="First Name"
                         required="">
                     <input class="text lastname" type="text" id="lastname" name="lastname" placeholder="Last Name"
@@ -67,7 +67,10 @@
             <li></li>
         </ul>
     </div>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </script>
 
     <script type="text/javascript">
         let passwordMatch = true;
@@ -98,7 +101,6 @@
                 let password = $('#password').val();
                 if (valid && passwordMatch) {
                     e.preventDefault();
-
                     $.ajax({
                         type: 'POST',
                         url: 'process.php',
@@ -116,6 +118,9 @@
                                 icon: 'success',
                                 confirmButtonText: 'Cool'
                             })
+                            $('#form-register').each(function(){
+                                this.reset();
+                            });
                         },
                         error: function (data) {
                             Swal.fire({
@@ -134,60 +139,6 @@
                     }
                 }
             })
-/*
-            $('#retrieve-data').click(function (e) {
-                e.preventDefault();
-                $('#form-register').css('display', 'none')
-                $('#retrieve-data').css('display', 'none')
-                $('.table-responsive').css('display', 'block')
-                $('#show-registration-form').css('display', 'inline-block')
-                $('#title').html('Users Data')
-
-                let table = $('<table class="table table-striped">')
-                let thead = $('<thead>')
-                let tr = $('<tr>');
-
-                thead.append(tr);
-                table.append(thead)
-
-                tr.append('<th scope="col">#</th>')
-                .append('<th scope="col">First Name</th>')
-                .append('<th scope="col">Last Name</th>')
-                .append('<th scope="col">Phone Number</th>')
-                .append('<th scope="col">Email</th>')
-
-                <?php
-                    $query = "SELECT * FROM users";
-                    $stmt = $objUser->runQuery($query);
-                    $stmt->execute();
-                ?>
-                let tbody = $('<tbody>')
-                table.append(tbody)
-                
-                    <?php if($stmt->rowCount() > 0){
-                        while($rowUser = $stmt->fetch(PDO::FETCH_ASSOC)){
-                        ?>
-                let bodyTr = $('<tr>');
-                bodyTr.append(`<th scope="row"><?php print($rowUser['id']); ?></th>`)
-                bodyTr.append(`<td><?php print($rowUser['firstname']); ?></td>`)
-                bodyTr.append(`<td><?php print($rowUser['lastname']); ?></td>`)
-                bodyTr.append(`<td><?php print($rowUser['phonenumber']); ?></td>`)
-                bodyTr.append(`<td><?php print($rowUser['email']); ?></td>`)
-                bodyTr.append(`<td><a class="confirmation" href="index.php?delete_id=<?php print($rowUser['id']); ?>"><i class="fa fa-trash-o" style="font-size:32px;color:red"></i></a></td>`);
-                tbody.append(bodyTr)
-                <?php } } ?>
-                $('.table-responsive').append(table)
-            })*/
-
-            $('#show-registration-form').click(function (e) {
-                e.preventDefault();
-                $('#form-register').css('display', 'block')
-                $('#retrieve-data').css('display', 'inline-block')
-                $('#show-registration-form').css('display', 'none')
-                $('.table-responsive').empty()
-                $('#title').html('SignUp Form')
-            })
-
         })
     </script>
 

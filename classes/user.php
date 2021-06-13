@@ -14,6 +14,7 @@ require_once 'database.php';
         //Execute queries
         public function runQuery($sql){
             $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
             return $stmt;
         }
 
@@ -28,14 +29,10 @@ require_once 'database.php';
                 $stmt->bindparam(":password", $password);
                 $stmt->execute();
                 return $stmt;
-
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
-
         }
-
-        //Update
 
         // Delete
     public function delete($id){
