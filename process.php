@@ -5,15 +5,15 @@ $objUser = new User();
 
 if(isset($_GET['delete_id'])){
     $id = $_GET['delete_id'];
-    try{
+    try {
       if($id != null){
         if($objUser->delete($id)){
           $objUser->redirect('user-data.php');
         }
-      }else{
+      } else{
         var_dump($id);
       }
-    }catch(PDOException $e){
+    } catch(PDOException $e){
       echo $e->getMessage();
     }
 }
